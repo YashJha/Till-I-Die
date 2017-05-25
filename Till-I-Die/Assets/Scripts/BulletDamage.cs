@@ -10,7 +10,7 @@ public class BulletDamage : MonoBehaviour
         if (col.tag == "Enemy")
         {
             Debug.Log("Take damage");
-            col.GetComponent<Enemy>().TakeDamage(10);
+            col.GetComponent<Enemy>().ReceiveDamage(10);
         }
 
     }

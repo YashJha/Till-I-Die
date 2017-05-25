@@ -13,8 +13,8 @@ public class WaveSystem : MonoBehaviour
     public int hazardCount;
     public float spawnWait;
     public float startWait;
-    private float waveWait;
-    public bool GetNextWave = false;
+    public float waveWait;
+    public int holder = 8;
 
     void Start()
     {
@@ -28,33 +28,26 @@ public class WaveSystem : MonoBehaviour
         {
             for (int i = 0; i < hazardCount; i++)
             {
-                Vector3 spawnPosition = SpawnPoints[0].transform.position;
-                Quaternion spawnRotation = Quaternion.identity;
-                Enemies = Instantiate(hazard, spawnPosition, spawnRotation);
+                int randomWayNumber = Random.Range(0, SpawnPoints.Length);
+                Debug.Log("Got Spawned at " + randomWayNumber);
+                Enemies = Instantiate(hazard, SpawnPoints[randomWayNumber].transform.position, SpawnPoints[randomWayNumber].transform.rotation);
                 agent = Enemies.GetComponent<NavMeshAgent>();
                 agent.SetDestination(new Vector3(0, 0, 0));
                 yield return new WaitForSeconds(spawnWait);
             }
-            if (GetNextWave)
-            {
-                yield return null;
-            }
+            // End of the WAVE
+            Wave++;
+            hazardCount += 2;
+            yield return new WaitForSeconds(waveWait);
         }
     }
 
     void Update()
     {
-
+        if(Wave == 1)
+        {
+            
+        }
     }
 
-    void StartWave()
-    {
-
-    }
-
-    public void NextWave()
-    {
-        GetNextWave = true;
-        Wave++;
-    }
 }

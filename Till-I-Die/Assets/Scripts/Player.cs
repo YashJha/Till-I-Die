@@ -1,21 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Enemy : Stats
+using UnityEngine.UI;
+public class Player : Stats
 {
-    enum EnemyType
-    {
-
-    }
-
+    public Text PlayerHealth;
     void Update()
     {
         if (currentHealth <= 0)
         {
             Destroy(this.gameObject);
         }
-
+        PlayerHealth.text = "Health " + ":" + currentHealth;
     }
 
 
